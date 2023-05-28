@@ -29,17 +29,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
     @Autowired
     ConvertedSectionCollection convertedSectionCollection;
 
-    @ApiOperation(value = &quot;Get a list of courses over time, filtered by (abbreviated) building name&quot;)
+    @ApiOperation(value = &quot;Get a list of courses over time, filtered by (abbreviated) building code (e.g. 'GIRV' for Girvetz Hall)&quot;)
     @GetMapping(value = &quot;/buildingsearch&quot;, produces = &quot;application/json&quot;)
     public ResponseEntity&lt;String&gt; search(
         @RequestParam String startQtr,
         @RequestParam String endQtr,
-        @RequestParam String buildingName
+        @RequestParam String buildingCode
     ) throws JsonProcessingException {
-<span class="fc" id="L39">        List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndBuildingName(</span>
+<span class="fc" id="L39">        List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndBuildingCode(</span>
             startQtr,
             endQtr,
-            buildingName
+            buildingCode
         );
 <span class="fc" id="L44">        String body = mapper.writeValueAsString(courseResults);</span>
 <span class="fc" id="L45">        return ResponseEntity.ok().body(body);</span>

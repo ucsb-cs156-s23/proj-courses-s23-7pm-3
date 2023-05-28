@@ -237,4 +237,27 @@ describe("AppNavbar tests", () => {
 
         expect(await screen.findByTestId("appnavbar-course-over-time-search")).toBeInTheDocument();
     });
+
+    test("renders the Instructor Course Over Time menu correctly", async () => {
+        const currentUser = currentUserFixtures.userOnly;
+        const systemInfo = systemInfoFixtures.showingBoth;
+
+        const doLogin = jest.fn();
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        expect(await screen.findByTestId("appnavbar-course-over-time-instructor-dropdown")).toBeInTheDocument();
+        const dropdown = screen.getByTestId("appnavbar-course-over-time-instructor-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+
+        expect(await screen.findByTestId("appnavbar-course-over-time-instructor-search")).toBeInTheDocument();
+    });
 });

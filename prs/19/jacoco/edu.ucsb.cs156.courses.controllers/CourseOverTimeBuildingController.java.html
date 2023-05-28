@@ -15,34 +15,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiParam;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(&quot;/api/public/courseovertime&quot;)
-<span class="fc" id="L23">public class CourseOverTimeBuildingController {</span>
+<span class="fc" id="L25">public class CourseOverTimeBuildingController {</span>
 
-<span class="fc" id="L25">    private final Logger logger = LoggerFactory.getLogger(CourseOverTimeBuildingController.class);</span>
+<span class="fc" id="L27">    private final Logger logger = LoggerFactory.getLogger(CourseOverTimeBuildingController.class);</span>
 
-<span class="fc" id="L27">    private ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L29">    private ObjectMapper mapper = new ObjectMapper();</span>
 
     @Autowired
     ConvertedSectionCollection convertedSectionCollection;
 
-    @ApiOperation(value = &quot;Get a list of courses over time, filtered by (abbreviated) building code (e.g. 'GIRV' for Girvetz Hall)&quot;)
+    @ApiOperation(value = &quot;Get a list of courses over time, filtered by (abbreviated) building code&quot;)
     @GetMapping(value = &quot;/buildingsearch&quot;, produces = &quot;application/json&quot;)
     public ResponseEntity&lt;String&gt; search(
+        @ApiParam(
+            name =  &quot;startQtr&quot;,
+            type = &quot;String&quot;,
+            value = &quot;Starting quarter in yyyyq format, e.g. 20231 for W23, 20232 for S23, etc. (1=Winter, 2=Spring, 3=Summer, 4=Fall)&quot;,
+            example = &quot;20231&quot;,
+            required = true)
         @RequestParam String startQtr,
+        @ApiParam(
+            name =  &quot;endQtr&quot;,
+            type = &quot;String&quot;,
+            value = &quot;Ending quarter in yyyyq format, e.g. 20231 for W23, 20232 for S23, etc. (1=Winter, 2=Spring, 3=Summer, 4=Fall)&quot;,
+            example = &quot;20231&quot;,
+            required = true)
         @RequestParam String endQtr,
+        @ApiParam(
+            name =  &quot;buildingCode&quot;,
+            type = &quot;String&quot;,
+            value = &quot;Building code such as PHELP for Phelps, GIRV for Girvetz&quot;,
+            example = &quot;GIRV&quot;,
+            required = true)
         @RequestParam String buildingCode
     ) throws JsonProcessingException {
-<span class="fc" id="L39">        List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndBuildingCode(</span>
+<span class="fc" id="L59">        List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndBuildingCode(</span>
             startQtr,
             endQtr,
             buildingCode
         );
-<span class="fc" id="L44">        String body = mapper.writeValueAsString(courseResults);</span>
-<span class="fc" id="L45">        return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L64">        String body = mapper.writeValueAsString(courseResults);</span>
+<span class="fc" id="L65">        return ResponseEntity.ok().body(body);</span>
     }    
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

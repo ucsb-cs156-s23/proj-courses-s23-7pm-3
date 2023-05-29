@@ -33,17 +33,12 @@ public class UploadGradeDataJob implements JobContextConsumer {
     public void accept(JobContext ctx) throws Exception {
         ctx.log("Updating UCSB Grade History Data");
         List<String> urls = UCSBGradeHistoryServiceImpl.getUrls();
-        ctx.log("Here is correct!");
         GradeHistory previous = new GradeHistory();
         List<GradeHistory> results = null;
-        ctx.log("Here is correct too!");
         for (String url : urls) {
             results = UCSBGradeHistoryServiceImpl.getGradeData(url);
-            ctx.log(results.toString());
             GradeHistory topRow = results.get(0);
-            ctx.log(topRow.toString());
             upsertAll(gradeHistoryRepository, results,ctx);
-            ctx.log("Here is correct too too!");
             logProgress(ctx, topRow, previous);
         }
 
@@ -68,10 +63,8 @@ public class UploadGradeDataJob implements JobContextConsumer {
                     gradeHistory.getGrade());
                 ctx.log("hello"+query.toString());
             if (query.size() == 0) {
-                ctx.log("Finished updating UCSB Grade History Data1");
                 ctx.log(gradeHistory.toString());
                 gradeHistoryRepository.save(gradeHistory);
-                ctx.log("Finished updating UCSB Grade History Data11");
                 result.add(gradeHistory);
             } else {
                 GradeHistory existing = query.get(0);

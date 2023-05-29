@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +25,7 @@ import lombok.Builder;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "gradehistory")
+@Entity(name = "historygrade")
 @Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueGradeHistory", columnNames = { "yyyyq", "course","instructor","grade","count"}) })
 public class GradeHistory {
     @Id

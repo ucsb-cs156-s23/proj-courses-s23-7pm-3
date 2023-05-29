@@ -61,15 +61,12 @@ public class UploadGradeDataJob implements JobContextConsumer {
             List<GradeHistory> query = gradeHistoryRepository.findByYyyyqAndCourseAndInstructorAndGrade(
                     gradeHistory.getYyyyq(), gradeHistory.getCourse(), gradeHistory.getInstructor(),
                     gradeHistory.getGrade());
-                ctx.log("hello"+query.toString());
             if (query.size() == 0) {
-                ctx.log(gradeHistory.toString());
                 gradeHistoryRepository.save(gradeHistory);
                 result.add(gradeHistory);
             } else {
                 GradeHistory existing = query.get(0);
                 existing.setCount(gradeHistory.getCount());
-                ctx.log("Finished updating UCSB Grade History Data2");
                 existing = gradeHistoryRepository.save(existing);
                 result.add(existing);
             }

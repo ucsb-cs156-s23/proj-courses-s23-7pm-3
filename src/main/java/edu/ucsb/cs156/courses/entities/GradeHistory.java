@@ -12,7 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
 /**
  * GradeHistory - Entity for grade history data.  Each object represents one
  * row from the CSV files located in this repository:
@@ -28,17 +27,25 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "gradehistory")
-@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueGradeHistory", columnNames = { "year", "quarter", "subjectArea","course","instructor","gradeGiven","sumofStudentCount" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueGradeHistory", columnNames = { "yyyyq", "course","instructor","grade","count"}) })
 public class GradeHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String year;
-    private String quarter;
-    private String level;
-    private String subjectArea;
+    private String yyyyq;
     private String course;
     private String instructor;
-    private String gradeGiven;
-    private int sumofStudentCount;
+    private String grade;
+    private int count;
+
+    public String getSubjectArea() {
+        if (course==null)
+            return null;
+        return course.substring(0, 8).trim();
+    }
+    public String getCourseNum() {
+        if (course==null)
+            return null;
+        return course.substring(8).trim();
+    }
 }

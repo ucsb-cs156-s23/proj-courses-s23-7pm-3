@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.ucsb.cs156.courses.repositories.GradeHistoryRepository;
-
+import edu.ucsb.cs156.courses.services.UCSBGradeHistoryService;
 import edu.ucsb.cs156.courses.services.UCSBGradeHistoryServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,14 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 public class UploadGradeDataJobFactory {
 
     @Autowired
-    UCSBGradeHistoryServiceImpl UCSBGradeHistoryServiceImpl;
+    UCSBGradeHistoryServiceImpl ucsbGradeHistoryServiceImpl;
 
     @Autowired
     GradeHistoryRepository gradeHistoryRepository;
 
     public UploadGradeDataJob create() {
         return new UploadGradeDataJob(
-                UCSBGradeHistoryServiceImpl,
+                ucsbGradeHistoryServiceImpl,
                 gradeHistoryRepository);
     }
 }

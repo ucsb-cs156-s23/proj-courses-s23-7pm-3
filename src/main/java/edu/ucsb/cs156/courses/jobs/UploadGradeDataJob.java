@@ -6,6 +6,7 @@ import java.util.List;
 import edu.ucsb.cs156.courses.entities.GradeHistory;
 import edu.ucsb.cs156.courses.repositories.GradeHistoryRepository;
 
+import edu.ucsb.cs156.courses.services.UCSBGradeHistoryService;
 import edu.ucsb.cs156.courses.services.UCSBGradeHistoryServiceImpl;
 import edu.ucsb.cs156.courses.services.jobs.JobContext;
 import edu.ucsb.cs156.courses.services.jobs.JobContextConsumer;
@@ -16,8 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-import edu.ucsb.cs156.courses.collections.ConvertedSectionCollection;
-import edu.ucsb.cs156.courses.documents.ConvertedSection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -25,20 +24,20 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class UploadGradeDataJob implements JobContextConsumer {
     @Getter
-    private UCSBGradeHistoryServiceImpl UCSBGradeHistoryServiceImpl;
+    private UCSBGradeHistoryServiceImpl ucsbGradeHistoryServiceImpl;
     @Getter
     private GradeHistoryRepository gradeHistoryRepository;
 
     @Override
     public void accept(JobContext ctx) throws Exception {
         ctx.log("Updating UCSB Grade History Data");
-        List<String> urls = UCSBGradeHistoryServiceImpl.getUrls();
+        List<String> urls = ucsbGradeHistoryServiceImpl.getUrls();
         GradeHistory previous = new GradeHistory();
         List<GradeHistory> results = null;
         for (String url : urls) {
-            results = UCSBGradeHistoryServiceImpl.getGradeData(url);
+            results = ucsbGradeHistoryServiceImpl.getGradeData(url);
             GradeHistory topRow = results.get(0);
-            upsertAll(gradeHistoryRepository, results,ctx);
+            upsertAll(gradeHistoryRepository, results);
             logProgress(ctx, topRow, previous);
         }
 
@@ -55,7 +54,7 @@ public class UploadGradeDataJob implements JobContextConsumer {
 
     public static List<GradeHistory> upsertAll(
             GradeHistoryRepository gradeHistoryRepository,
-            List<GradeHistory> gradeHistories,JobContext ctx){
+            List<GradeHistory> gradeHistories){
         List<GradeHistory> result = new ArrayList<GradeHistory>();
         for (GradeHistory gradeHistory : gradeHistories) {
             List<GradeHistory> query = gradeHistoryRepository.findByYyyyqAndCourseAndInstructorAndGrade(

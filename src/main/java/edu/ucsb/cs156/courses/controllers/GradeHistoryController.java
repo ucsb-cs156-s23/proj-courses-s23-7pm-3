@@ -8,6 +8,7 @@ import edu.ucsb.cs156.courses.services.UCSBGradeHistoryServiceImpl;
 import edu.ucsb.cs156.courses.utilities.CourseUtilities;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,9 +46,22 @@ public class GradeHistoryController extends ApiController {
     @ApiOperation(value = "Get grade history for a course")
     @GetMapping(value = "/search", produces = "application/json")
     public Iterable<GradeHistory> gradeHistoryBySubjectAreaAndCourseNumber(
+        @ApiParam(
+            name =  "subjectArea",
+            type = "String",
+            value = "Subjects of UCSB",
+            example = "ANTH, WRIT",
+            required = true)
         @RequestParam String subjectArea,
+        @ApiParam(
+            name =  "courseNumber",
+            type = "String",
+            value = "Represents a subject-specific course",
+            example = "2 for(ANTH), 1 for(WRIT)",
+            required = true)
         @RequestParam String courseNumber
-    )  {
+      )  
+      {
       String course=CourseUtilities.makeFormattedCourseId(subjectArea, courseNumber);
       Iterable<GradeHistory> gradeHistoryRows = gradeHistoryRepository.findByCourse(course);
       return gradeHistoryRows;

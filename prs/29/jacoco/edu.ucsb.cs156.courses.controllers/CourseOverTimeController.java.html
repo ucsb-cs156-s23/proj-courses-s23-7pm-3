@@ -52,8 +52,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         @ApiParam(
             name =  &quot;subjectArea&quot;,
             type = &quot;String&quot;,
-            value = &quot;simplified area name followed with full area name&quot;,
-            example = &quot;EARTH - Earth Science&quot;,
+            value = &quot;simplified area name&quot;,
+            example = &quot;CMPSC (for Computer Science)&quot;,
             required = true
         )
         @RequestParam String subjectArea,
@@ -61,7 +61,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
             name =  &quot;courseNumber&quot;,
             type = &quot;String&quot;,
             value = &quot;the specific course number&quot;,
-            example = &quot;16 or 130A (for CS16 or CS130A)&quot;,
+            example = &quot;130A (for CS130A)&quot;,
             required = true
         )
         @RequestParam String courseNumber

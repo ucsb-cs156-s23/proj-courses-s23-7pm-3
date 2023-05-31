@@ -52,16 +52,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         @ApiParam(
             name =  &quot;subjectArea&quot;,
             type = &quot;String&quot;,
-            value = &quot;simplified area name&quot;,
-            example = &quot;CMPSC (for Computer Science)&quot;,
+            value = &quot;simplified area name, e.g. CMPSC for computer science&quot;,
+            example = &quot;CMPSC&quot;,
             required = true
         )
         @RequestParam String subjectArea,
         @ApiParam(
             name =  &quot;courseNumber&quot;,
             type = &quot;String&quot;,
-            value = &quot;the specific course number&quot;,
-            example = &quot;130A (for CS130A)&quot;,
+            value = &quot;the specific course number, e.g. 130A for CS130A&quot;,
+            example = &quot;130A&quot;,
             required = true
         )
         @RequestParam String courseNumber

@@ -25,6 +25,7 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
   const localSubject = localStorage.getItem("BasicSearch.Subject");
   const localQuarter = localStorage.getItem("BasicSearch.Quarter");
   const localLevel = localStorage.getItem("BasicSearch.CourseLevel");
+  const localBuilding = localStorage.getItem("BasicSearch.Building")
 
   const { data: subjects, error: _error, status: _status } =
   useBackend(
@@ -37,10 +38,15 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
   const [quarter, setQuarter] = useState(localQuarter || quarters[0].yyyyq);
   const [subject, setSubject] = useState(localSubject || {});
   const [level, setLevel] = useState(localLevel || "U");
+  const [building, setBuilding] = useState(localBuilding || {});
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetchJSON(event, { quarter, subject, level });
+    fetchJSON(event, { quarter, subject, level, building });
+  };
+
+  const handleBuildingOnChange = (event) => {
+    setBuilding(event.target.value);
   };
 
   // Stryker disable all : Stryker is testing by changing the padding to 0. But this is simply a visual optimization as it makes it look better
@@ -71,6 +77,12 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
               setLevel={setLevel}
               controlId={"BasicSearch.Level"}
             />
+          </Col>
+          <Col md="auto">
+            <Form.Group controlId="BasicSearch.Building">
+              <Form.Label>Building Code</Form.Label>
+              <Form.Control onChange={handleBuildingOnChange} defaultValue={building} />
+            </Form.Group>
           </Col>
         </Row>
         <Row style={{ paddingTop: 10, paddingBottom: 10 }}>

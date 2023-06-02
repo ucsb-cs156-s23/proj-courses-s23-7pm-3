@@ -1,6 +1,8 @@
 package edu.ucsb.cs156.courses.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.ucsb.cs156.courses.collections.ConvertedSectionCollection;
 import edu.ucsb.cs156.courses.documents.ConvertedSection;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,8 +74,13 @@ public class CourseOverTimeController {
             endQtr,
             makeFormattedCourseId(subjectArea, courseNumber)
         );
-        String body = mapper.writeValueAsString(courseResults);
-        return ResponseEntity.ok().body(body);
+        // String body = mapper.writeValueAsString(courseResults);
+        // return ResponseEntity.ok().body(body);
+            Map<String, Object> map = new HashMap<>();
+            map.put("count", courseResults.size());
+            map.put("results", courseResults);
+            String body = mapper.writeValueAsString(map);
+            return ResponseEntity.ok().body(body);
     }
 
     String makeFormattedCourseId(String subjectArea, String courseNumber) {

@@ -18,8 +18,8 @@ export default function CourseOverTimeIndexPage() {
     },
   });
 
-  const onSuccess = (courses) => {
-    setCourseJSON(courses);
+  const onSuccess = (result) => {
+    setCourseJSON(result);
   };
 
   const mutation = useBackendMutation(
@@ -32,13 +32,18 @@ export default function CourseOverTimeIndexPage() {
   async function fetchCourseOverTimeJSON(_event, query) {
     mutation.mutate(query);
   }
-
+  console.log("courseJSON=", courseJSON)
   return (
     <BasicLayout>
       <div className="pt-2">
         <h5>Welcome to the UCSB Course History Search!</h5>
         <CourseOverTimeSearchForm fetchJSON={fetchCourseOverTimeJSON} />
-        <SectionsOverTimeTable sections={courseJSON} />
+        {
+          courseJSON?.count > 0 && <SectionsOverTimeTable sections={courseJSON.results} />
+        }
+        {
+          courseJSON?.count === 0 && <p>No courses found.</p>        
+        }
       </div>
     </BasicLayout>
   );

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
-//import { allTheLevels } from "fixtures/levelsFixtures";
+import { allBuildings } from "fixtures/buildingFixtures";
 import { quarterRange } from "main/utils/quarterUtilities";
 
 import { useSystemInfo } from "main/utils/systemInfo";
 import SingleQuarterDropdown from "../Quarters/SingleQuarterDropdown";
+import SingleBuildingDropdown from "../Buildings/SingleBuildingDropdown";
 
 const CourseOverTimeBuildingsSearchForm = ({ fetchJSON }) => {
 
@@ -25,15 +26,11 @@ const CourseOverTimeBuildingsSearchForm = ({ fetchJSON }) => {
 
   const [startQuarter, setStartQuarter] = useState(localStartQuarter || quarters[0].yyyyq);
   const [endQuarter, setEndQuarter] = useState(localEndQuarter || quarters[0].yyyyq);
-  const [buildingCode, setBuildingCode] = useState(localBuildingCode || "")
+  const [buildingCode, setBuildingCode] = useState(localBuildingCode || {});
     
   const handleSubmit = (event) => {
     event.preventDefault();
     fetchJSON(event, { startQuarter, endQuarter, buildingCode });
-  };
-
-  const handleBuildingCodeOnChange = (event) => {
-    setBuildingCode(event.target.value);
   };
 
   // Stryker disable all : Stryker is testing by changing the padding to 0. But this is simply a visual optimization as it makes it look better
@@ -60,10 +57,13 @@ const CourseOverTimeBuildingsSearchForm = ({ fetchJSON }) => {
             />
           </Col>
           <Col md="auto">
-            <Form.Group controlId="CourseOverTimeBuildingsSearch.BuildingCode">
-              <Form.Label>Building Code</Form.Label>
-              <Form.Control onChange={handleBuildingCodeOnChange} defaultValue={buildingCode} />
-            </Form.Group>
+            <SingleBuildingDropdown
+              buildings={allBuildings}
+              building={buildingCode}
+              setBuilding={setBuildingCode}
+              controlId={"CourseOverTimeBuildingsSearch.BuildingCode"}
+              label={"Building Name"}
+            />
           </Col>
         </Row>
         <Row style={{ paddingTop: 10, paddingBottom: 10 }}>

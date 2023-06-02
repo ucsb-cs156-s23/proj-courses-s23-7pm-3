@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/CourseOverTime/CourseOverTimeInstructorIndexPage.js</title>
+    <title>Code coverage report for pages/CourseOverTime/CourseOverTimeBuildingsIndexPage.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/CourseOverTime</a> CourseOverTimeInstructorIndexPage.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/CourseOverTime</a> CourseOverTimeBuildingsIndexPage.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,22 +114,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,10 +124,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,43 +151,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import CourseOverTimeInstructorSearchForm from "main/components/BasicCourseSearch/CourseOverTimeInstructorSearchForm";
+import CourseOverTimeBuildingsSearchForm from "main/components/BasicCourseSearch/CourseOverTimeBuildingsSearchForm";
 import { useBackendMutation } from "main/utils/useBackend";
 import SectionsTable from "main/components/Sections/SectionsTable";
 &nbsp;
-export default function CourseOverTimeInstructorIndexPage() {
+export default function <span class="fstat-no" title="function not covered" >CourseOverTimeBuildingsIndexPage(</span>) {
   // Stryker disable next-line all : Can't test state because hook is internal
-  const [courseJSON, setCourseJSON] = useState([]);
+  const [courseJSON, setCourseJSON] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
 &nbsp;
-  const objectToAxiosParams = (query) =&gt; ({
-    url: "/api/public/courseovertime/instructorsearch",
+  const objectToAxiosParams = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(q</span>uery) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+    url: "/api/public/courseovertime/buildingsearch",
     params: {
       startQtr: query.startQuarter,
       endQtr: query.endQuarter,
-      instructor: query.instructor,
+      buildingCode: query.buildingCode,
     },
   });
 &nbsp;
-  const onSuccess = (courses) =&gt; {
-    setCourseJSON(courses);
+  const onSuccess = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(b</span>uildings) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setCourseJSON(buildings);</span>
   };
 &nbsp;
-  const mutation = useBackendMutation(
+  const mutation = <span class="cstat-no" title="statement not covered" >useBackendMutation(</span>
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
     []
   );
 &nbsp;
-  async function fetchCourseOverTimeJSON(_event, query) {
-    mutation.mutate(query);
+  async function <span class="fstat-no" title="function not covered" >fetchCourseOverTimeJSON(</span>_event, query) {
+<span class="cstat-no" title="statement not covered" >    mutation.mutate(query);</span>
   }
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;BasicLayout&gt;
       &lt;div className="pt-2"&gt;
         &lt;h5&gt;Welcome to the UCSB Course History Search!&lt;/h5&gt;
-        &lt;CourseOverTimeInstructorSearchForm fetchJSON={fetchCourseOverTimeJSON} /&gt;
+        &lt;CourseOverTimeBuildingsSearchForm fetchJSON={fetchCourseOverTimeJSON} /&gt;
         &lt;SectionsTable sections={courseJSON} /&gt;
       &lt;/div&gt;
     &lt;/BasicLayout&gt;
@@ -199,7 +199,7 @@ export default function CourseOverTimeInstructorIndexPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jun 01 2023 19:47:56 GMT-0700 (Pacific Daylight Time)
+                at Thu Jun 01 2023 21:55:14 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

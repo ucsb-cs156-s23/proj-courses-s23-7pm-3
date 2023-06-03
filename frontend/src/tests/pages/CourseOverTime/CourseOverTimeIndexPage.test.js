@@ -133,40 +133,38 @@ describe("CourseOverTimeIndexPage tests", () => {
     });
 
     test('renders SectionsOverTimeTable when courseJSON has results', async () => {
-        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
-        axiosMock
-          .onGet("/api/public/courseovertime/search")
-          .reply(200, { count: 0, results: [] });
-      
-        render(
-          <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-              <CourseOverTimeIndexPage />
-            </MemoryRouter>
-          </QueryClientProvider>
-        );
-      
-        const selectStartQuarter = screen.getByLabelText("Start Quarter");
-        userEvent.selectOptions(selectStartQuarter, "20222");
-        const selectEndQuarter = screen.getByLabelText("End Quarter");
-        userEvent.selectOptions(selectEndQuarter, "20222");
-        const selectSubject = screen.getByLabelText("Subject Area");
-      
-        const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
-        await waitFor(() => expect(screen.getByTestId(expectedKey)).toBeInTheDocument());
-      
-        userEvent.selectOptions(selectSubject, "CMPSC");
-        const enterCourseNumber = screen.getByLabelText(
-          "Course Number (Try searching '16' or '130A')"
-        );
-        userEvent.type(enterCourseNumber, "130A");
-        const submitButton = screen.getByText("Submit");
-        expect(submitButton).toBeInTheDocument();
-        userEvent.click(submitButton);
-
-        // axiosMock.resetHistory();
-      
-        await waitFor(() => expect(screen.getByText("CMPSC 130A")).toBeInTheDocument());
+      axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
+      axiosMock
+        .onGet("/api/public/courseovertime/search")
+        .reply(200, { count: 2, results: ['section1', 'section2'] });
+    
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <CourseOverTimeIndexPage />
+          </MemoryRouter>
+        </QueryClientProvider>
+      );
+    
+      const selectStartQuarter = screen.getByLabelText("Start Quarter");
+      userEvent.selectOptions(selectStartQuarter, "20222");
+      const selectEndQuarter = screen.getByLabelText("End Quarter");
+      userEvent.selectOptions(selectEndQuarter, "20222");
+      const selectSubject = screen.getByLabelText("Subject Area");
+    
+      const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
+      await waitFor(() => expect(screen.getByTestId(expectedKey)).toBeInTheDocument());
+    
+      userEvent.selectOptions(selectSubject, "CMPSC");
+      const enterCourseNumber = screen.getByLabelText(
+        "Course Number (Try searching '16' or '130A')"
+      );
+      userEvent.type(enterCourseNumber, "130A");
+      const submitButton = screen.getByText("Submit");
+      expect(submitButton).toBeInTheDocument();
+      userEvent.click(submitButton);
+    
+      await waitFor(() => expect(screen.getByTestId('SectionsOverTimeTable')).toBeInTheDocument());
     });
 
 });

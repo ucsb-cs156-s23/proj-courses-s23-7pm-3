@@ -12,7 +12,7 @@ courses,edu.ucsb.cs156.courses.controllers,PSCourseController,0,545,0,34,0,111,0
 courses,edu.ucsb.cs156.courses.controllers,CourseOverTimeInstructorController,0,28,0,0,0,6,0,2,0,2
 courses,edu.ucsb.cs156.courses.controllers,SystemInfoController,0,7,0,0,0,2,0,2,0,2
 courses,edu.ucsb.cs156.courses.controllers,CourseOverTimeController,0,93,0,2,0,17,0,4,0,3
-courses,edu.ucsb.cs156.courses.controllers,JobsController,0,67,0,0,0,17,0,7,0,7
+courses,edu.ucsb.cs156.courses.controllers,JobsController,0,76,0,0,0,19,0,8,0,8
 courses,edu.ucsb.cs156.courses.controllers,UCSBSubjectsController,0,109,0,0,0,24,0,10,0,10
 courses,edu.ucsb.cs156.courses.documents,Course,0,4,0,0,0,1,0,1,0,1
 courses,edu.ucsb.cs156.courses.documents,CoursePage,0,93,0,4,0,26,0,5,0,3
@@ -26,10 +26,12 @@ courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataRangeOfQuartersSingleSubject
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataJob,0,124,0,4,0,31,0,4,0,2
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataWithQuarterJob,0,149,0,6,0,37,0,5,0,2
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataJobFactory,0,27,0,0,0,5,0,3,0,3
+courses,edu.ucsb.cs156.courses.jobs,UploadGradeDataJobFactory,0,11,0,0,0,2,0,2,0,2
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataWithQuarterJobFactory,0,33,0,0,0,6,0,3,0,3
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataRangeOfQuartersSingleSubjectJobFactory,0,14,0,0,0,2,0,2,0,2
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataRangeOfQuartersJob,0,155,0,8,0,39,0,7,0,3
 courses,edu.ucsb.cs156.courses.jobs,UpdateCourseDataRangeOfQuartersJobFactory,0,52,0,2,0,10,0,4,0,3
+courses,edu.ucsb.cs156.courses.jobs,UploadGradeDataJob,0,127,0,8,0,31,0,7,0,3
 courses,edu.ucsb.cs156.courses.errors,EntityNotFoundException,0,17,0,0,0,3,0,1,0,1
 courses,edu.ucsb.cs156.courses.errors,BadEnrollCdException,0,12,0,0,0,3,0,1,0,1
 courses,edu.ucsb.cs156.courses.entities,GradeHistory,0,23,0,4,0,6,0,4,0,2

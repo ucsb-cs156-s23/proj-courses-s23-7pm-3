@@ -37,8 +37,7 @@ export default function SectionsTableBase({ columns, data, testid = "testid"}) {
                     <td
                     {...cell.getCellProps()}
                     data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`}
-                    // Stryker disable all
-                    style={{background: cell.isGrouped ? "#e5fcf4" : cell.isAggregated ? "#e5fcf4" : "#effcf8", fontWeight: cell.isGrouped ? "bold" : cell.isAggregated ? "bold" : "normal"}}
+                    style={{background: cell.isGrouped ? ( "#e5fcf4" ) : ( cell.isAggregated ? "#e5fcf4" : "#effcf8" ), fontWeight: cell.isGrouped ? ( "bold" ) : ( cell.isAggregated ? "bold" : "normal" )}}
                     >
                     {cell.isGrouped ? (
                     <>
@@ -49,7 +48,6 @@ export default function SectionsTableBase({ columns, data, testid = "testid"}) {
                     </span>{" "} 
                     {cell.render("Cell")} 
                     </> 
-                    // Stryker restore all
                     ) 
                     : cell.isAggregated ? (
                       cell.render("Aggregated")

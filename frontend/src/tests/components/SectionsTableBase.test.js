@@ -1,23 +1,32 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import SectionsTableBase from "main/components/SectionsTableBase";
+import { columns, noSections, hasOneSection } from 'fixtures/sectionBaseFixtures'
+
 
 describe("SectionsTableBase tests", () => {
 
-    const columns = [
-        {
-            Header: 'Column 1',
-            accessor: 'col1', // accessor is the "key" in the data
-        },
-        {
-            Header: 'Column 2',
-            accessor: 'col2',
-        },
-        //add groupable columns
-    ];
-    
     test("renders an empty table without crashing", () => {
         render(
-            <SectionsTableBase columns={columns} data={[]} group={false} />
+            <SectionsTableBase columns={columns} data={[]} />
         );
+    });
+
+    test("does not render plus button when there are no sections", () => {
+        render(
+            <SectionsTableBase columns={columns} data={noSections} />
+        );
+
+        const courseid = screen.getByText("sample courseid");
+        expect(courseid.children[0].textContent).toBe('');
+    });
+
+    test("renders plus button when there are sections", () => {
+        render(
+            <SectionsTableBase columns={columns} data={hasOneSection} />
+        );
+
+        const courseid = screen.getByText("sample courseid");
+        expect(courseid.children[0].textContent).toBe('➕ ');
+
     });
 })

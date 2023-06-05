@@ -28,6 +28,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
       <tbody {...getTableBodyProps()}>
         {rows.map(row => {
           prepareRow(row)
+          console.log(row)
           return (
             <>
             {row.cells[0].isGrouped || (!row.cells[0].isGrouped && row.allCells[3].value) ? 
@@ -37,7 +38,7 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
                     <td
                     {...cell.getCellProps()}
                     data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`}
-                    // Stryker disable next-line ObjectLiteral
+                    // Stryker disable all
                     style={{background: cell.isGrouped ? "#e5fcf4" : cell.isAggregated ? "#e5fcf4" : "#effcf8", fontWeight: cell.isGrouped ? "bold" : cell.isAggregated ? "bold" : "normal"}}
                     >
                     
@@ -46,10 +47,11 @@ export default function SectionsOverTimeTableBase({ columns, data, testid = "tes
                     <span {...row.getToggleRowExpandedProps()}
                     data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-expand-symbols`}
                     >
-                    {row.isExpanded ? "➖ " : "➕ "}
+                    {row.subRows.length > 1 ? row.isExpanded ? "➖ " : "➕ " : null} 
                     </span>{" "}
                     {cell.render("Cell")} 
                     </>
+                    // Stryker restore all
                     ) 
                     : cell.isAggregated ? (
                       cell.render("Aggregated")

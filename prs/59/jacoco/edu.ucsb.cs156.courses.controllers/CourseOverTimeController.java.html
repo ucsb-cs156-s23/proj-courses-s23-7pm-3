@@ -4,7 +4,6 @@ import java.util.List;
 
 import edu.ucsb.cs156.courses.collections.ConvertedSectionCollection;
 import edu.ucsb.cs156.courses.documents.ConvertedSection;
-import edu.ucsb.cs156.courses.utilities.CourseUtilities;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -22,11 +21,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(&quot;/api/public/courseovertime&quot;)
-<span class="fc" id="L25">public class CourseOverTimeController {</span>
+<span class="fc" id="L24">public class CourseOverTimeController {</span>
 
-<span class="fc" id="L27">    private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);</span>
+<span class="fc" id="L26">    private final Logger logger = LoggerFactory.getLogger(CourseOverTimeController.class);</span>
 
-<span class="fc" id="L29">    private ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L28">    private ObjectMapper mapper = new ObjectMapper();</span>
 
     @Autowired
     ConvertedSectionCollection convertedSectionCollection;
@@ -67,13 +66,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         )
         @RequestParam String courseNumber
     ) throws JsonProcessingException {
-<span class="fc" id="L70">        List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndCourseId(</span>
+<span class="fc" id="L69">        List&lt;ConvertedSection&gt; courseResults = convertedSectionCollection.findByQuarterRangeAndCourseId(</span>
             startQtr,
             endQtr,
-<span class="fc" id="L73">            CourseUtilities.makeFormattedCourseId(subjectArea, courseNumber)</span>
+<span class="fc" id="L72">            makeFormattedCourseId(subjectArea, courseNumber)</span>
         );
-<span class="fc" id="L75">        String body = mapper.writeValueAsString(courseResults);</span>
-<span class="fc" id="L76">        return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L74">        String body = mapper.writeValueAsString(courseResults);</span>
+<span class="fc" id="L75">        return ResponseEntity.ok().body(body);</span>
+    }
+    
+    String makeFormattedCourseId(String subjectArea, String courseNumber) {
+<span class="fc" id="L79">        String[] nums = courseNumber.split(&quot;[a-zA-Z]+&quot;);</span>
+<span class="fc" id="L80">        String[] suffs = courseNumber.split(&quot;[0-9]+&quot;);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (suffs.length &lt; 2) { // no suffix</span>
+<span class="fc" id="L82">            return</span>
+<span class="fc" id="L83">                  String.format( &quot;%-8s&quot;, subjectArea                ) // 'CMPSC   '</span>
+<span class="fc" id="L84">                + String.format( &quot;%3s&quot; , nums[0]                    ) // '  8'</span>
+            ;
+        }
+<span class="fc" id="L87">        return</span>
+<span class="fc" id="L88">              String.format( &quot;%-8s&quot;, subjectArea                ) // 'CMPSC   '</span>
+<span class="fc" id="L89">            + String.format( &quot;%3s&quot; , nums[0]                    ) // '  8'</span>
+<span class="fc" id="L90">            + String.format( &quot;%-2s&quot;, suffs[1]                   ) // 'A '</span>
+        ;
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

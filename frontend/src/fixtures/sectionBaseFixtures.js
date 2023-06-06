@@ -1,4 +1,6 @@
 export const columns = [
+    // SectionsTableBase tries to get row.allCells[3], so this table needs at least four columns
+    // It also groups by courseInfo.courseId, so having that is also required
     {
         Header: 'Course ID',
         accessor: 'courseInfo.courseId',
@@ -34,7 +36,7 @@ export const columns = [
 export const noSections = [
     {
         "courseInfo": {
-            "courseId": "sample courseid"
+            "courseId": "test-courseid"
         },
         "col2": "other data"
     }
@@ -43,18 +45,18 @@ export const noSections = [
 export const hasOneSection = [
     {
         "courseInfo": {
-            "courseId": "sample courseid"
+            "courseId": "test-courseid"
         },
-        "col2": "other data",
-        "col3": "other data",
-        "col4": "other data"
+        "col2": "other data 2",
+        "col3": "other data 3",
+        "col4": "other data 4"
     },
     {
         "courseInfo": {
-            "courseId": "sample courseid"
+            "courseId": "test-courseid"
         },
-        "col2": "some other data",
-        "col3": "some other data",
-        "col4": "some other data"
+        "col2": "some other data 2",
+        "col3": "some other data 3",
+        "col4": "some other data 4"
     }
 ]

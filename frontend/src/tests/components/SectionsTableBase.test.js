@@ -16,7 +16,7 @@ describe("SectionsTableBase tests", () => {
             <SectionsTableBase columns={columns} data={noSections} />
         );
 
-        const courseid = screen.getByText("sample courseid");
+        const courseid = screen.getByText("test-courseid");
         expect(courseid.children[0].textContent).toBe('');
     });
 
@@ -25,8 +25,8 @@ describe("SectionsTableBase tests", () => {
             <SectionsTableBase columns={columns} data={hasOneSection} />
         );
 
-        const courseid = screen.getByText("sample courseid");
+        const courseid = screen.getByText("test-courseid");
         expect(courseid.children[0].textContent).toBe('➕ ');
-
+        expect(screen.getByTestId("testid-cell-row-0-col-courseInfo.courseId")).toHaveAttribute("style", "background: rgb(229, 252, 244); font-weight: bold;");
     });
 })

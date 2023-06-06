@@ -37,7 +37,7 @@ public class CourseOverTimeController {
     @GetMapping(value = "/search", produces = "application/json")
     public ResponseEntity<String> search(
         @ApiParam(
-            name = "StartQtr",
+            name = "startQtr",
             type = "string",
             value = "starting quarter in yyyyq format, e.g. 20231 for W23, 20232 for S23, etc. (1=Winter, 2=Spring, 3=Summer, 4=Fall)",
             example = "20231",
@@ -76,11 +76,11 @@ public class CourseOverTimeController {
         );
         // String body = mapper.writeValueAsString(courseResults);
         // return ResponseEntity.ok().body(body);
-            Map<String, Object> map = new HashMap<>();
-            map.put("count", courseResults.size());
-            map.put("results", courseResults);
-            String body = mapper.writeValueAsString(map);
-            return ResponseEntity.ok().body(body);
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", courseResults.size());
+        map.put("results", courseResults);
+        String body = mapper.writeValueAsString(map);
+        return ResponseEntity.ok().body(body);
     }
 
     String makeFormattedCourseId(String subjectArea, String courseNumber) {

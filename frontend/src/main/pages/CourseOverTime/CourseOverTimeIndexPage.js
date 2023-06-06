@@ -39,7 +39,7 @@ export default function CourseOverTimeIndexPage() {
         <h5>Welcome to the UCSB Course History Search!</h5>
         <CourseOverTimeSearchForm fetchJSON={fetchCourseOverTimeJSON} />
         {
-          courseJSON?.count > 0 && <SectionsOverTimeTable sections={courseJSON.results} />
+          courseJSON?.count > 0 && <p>Courses found.</p>  &&<SectionsOverTimeTable sections={courseJSON.results} />
         }
         {
           courseJSON?.count === 0 && <p>No courses found.</p>        

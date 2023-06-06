@@ -26,117 +26,81 @@ jest.mock('react-toastify', () => {
 
 describe("CourseOverTimeIndexPage tests", () => {
 
-    const axiosMock =new AxiosMockAdapter(axios);
-    
-    beforeEach(() => {
-        axiosMock.resetHistory();
-        axiosMock
-            .onGet("/api/currentUser")
-            .reply(200, apiCurrentUserFixtures.userOnly);
-        axiosMock
-            .onGet("/api/systemInfo")
-            .reply(200, systemInfoFixtures.showingNeither);
-    });
+  const axiosMock =new AxiosMockAdapter(axios);
+  
+  beforeEach(() => {
+      axiosMock.resetHistory();
+      axiosMock
+          .onGet("/api/currentUser")
+          .reply(200, apiCurrentUserFixtures.userOnly);
+      axiosMock
+          .onGet("/api/systemInfo")
+          .reply(200, systemInfoFixtures.showingNeither);
+  });
 
-    const queryClient = new QueryClient();
-    test("renders without crashing", () => {
-        render(
-        <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-                <CourseOverTimeIndexPage />
-            </MemoryRouter>
-        </QueryClientProvider>
-        );
-    });
-
-    test("calls UCSB Course over time search api correctly with 3 section response", async () => {
-        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
-        axiosMock
-            .onGet("/api/public/courseovertime/search")
-            .reply(200, threeSections);
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <CourseOverTimeIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        const selectStartQuarter = screen.getByLabelText("Start Quarter");
-        userEvent.selectOptions(selectStartQuarter, "20222");
-        const selectEndQuarter = screen.getByLabelText("End Quarter");
-        userEvent.selectOptions(selectEndQuarter, "20222");
-        const selectSubject = screen.getByLabelText("Subject Area");
-        
-
-        const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
-        await waitFor(() => expect(screen.getByTestId(expectedKey).toBeInTheDocument));
-        
-        userEvent.selectOptions(selectSubject, "ANTH");
-        const enterCourseNumber = screen.getByLabelText("Course Number (Try searching '16' or '130A')")
-        userEvent.type(enterCourseNumber, "130A");
-
-        const submitButton = screen.getByText("Submit");
-        expect(submitButton).toBeInTheDocument();
-        userEvent.click(submitButton);
-
-        axiosMock.resetHistory();
-
-        await waitFor(() => {
-            expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
-        });
-
-        expect(axiosMock.history.get[0].params).toEqual({
-            startQtr: "20222",
-            endQtr: "20222",
-            subjectArea: "ANTH",
-            courseNumber: "130A",
-        });
-
-        // expect(screen.getByText("ECE 1A")).toBeInTheDocument();
-    });
-
-    test('renders "No courses found." message when courseJSON is empty', async () => {
-        axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
-        axiosMock
-          .onGet("/api/public/courseovertime/search")
-          .reply(200, { count: 0, results: [] });
-      
-        render(
-          <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
+  const queryClient = new QueryClient();
+  test("renders without crashing", () => {
+      render(
+      <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
               <CourseOverTimeIndexPage />
-            </MemoryRouter>
-          </QueryClientProvider>
-        );
-      
-        const selectStartQuarter = screen.getByLabelText("Start Quarter");
-        userEvent.selectOptions(selectStartQuarter, "20222");
-        const selectEndQuarter = screen.getByLabelText("End Quarter");
-        userEvent.selectOptions(selectEndQuarter, "20222");
-        const selectSubject = screen.getByLabelText("Subject Area");
-      
-        const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
-        await waitFor(() => expect(screen.getByTestId(expectedKey)).toBeInTheDocument());
-      
-        userEvent.selectOptions(selectSubject, "ANTH");
-        const enterCourseNumber = screen.getByLabelText(
-          "Course Number (Try searching '16' or '130A')"
-        );
-        userEvent.type(enterCourseNumber, "130A");
-        const submitButton = screen.getByText("Submit");
-        expect(submitButton).toBeInTheDocument();
-        userEvent.click(submitButton);
-      
-        await waitFor(() => expect(screen.getByText("No courses found.")).toBeInTheDocument());
-    });
+          </MemoryRouter>
+      </QueryClientProvider>
+      );
+  });
 
-    test('renders SectionsOverTimeTable when courseJSON has results', async () => {
+  test("calls UCSB Course over time search api correctly with 3 section response", async () => {
+      axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
+      axiosMock
+          .onGet("/api/public/courseovertime/search")
+          .reply(200, threeSections);
+
+      render(
+          <QueryClientProvider client={queryClient}>
+              <MemoryRouter>
+                  <CourseOverTimeIndexPage />
+              </MemoryRouter>
+          </QueryClientProvider>
+      );
+
+      const selectStartQuarter = screen.getByLabelText("Start Quarter");
+      userEvent.selectOptions(selectStartQuarter, "20222");
+      const selectEndQuarter = screen.getByLabelText("End Quarter");
+      userEvent.selectOptions(selectEndQuarter, "20222");
+      const selectSubject = screen.getByLabelText("Subject Area");
+      
+
+      const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
+      await waitFor(() => expect(screen.getByTestId(expectedKey).toBeInTheDocument));
+      
+      userEvent.selectOptions(selectSubject, "ANTH");
+      const enterCourseNumber = screen.getByLabelText("Course Number (Try searching '16' or '130A')")
+      userEvent.type(enterCourseNumber, "130A");
+
+      const submitButton = screen.getByText("Submit");
+      expect(submitButton).toBeInTheDocument();
+      userEvent.click(submitButton);
+
+      axiosMock.resetHistory();
+
+      await waitFor(() => {
+          expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
+      });
+
+      expect(axiosMock.history.get[0].params).toEqual({
+          startQtr: "20222",
+          endQtr: "20222",
+          subjectArea: "ANTH",
+          courseNumber: "130A",
+      });
+
+  });
+
+  test('renders "No courses found." message when courseJSON is empty', async () => {
       axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
       axiosMock
         .onGet("/api/public/courseovertime/search")
-        .reply(200, { count: 2, results: ['section1', 'section2'] });
+        .reply(200, { count: 0, results: [] });
     
       render(
         <QueryClientProvider client={queryClient}>
@@ -155,7 +119,7 @@ describe("CourseOverTimeIndexPage tests", () => {
       const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
       await waitFor(() => expect(screen.getByTestId(expectedKey)).toBeInTheDocument());
     
-      userEvent.selectOptions(selectSubject, "CMPSC");
+      userEvent.selectOptions(selectSubject, "ANTH");
       const enterCourseNumber = screen.getByLabelText(
         "Course Number (Try searching '16' or '130A')"
       );
@@ -164,7 +128,42 @@ describe("CourseOverTimeIndexPage tests", () => {
       expect(submitButton).toBeInTheDocument();
       userEvent.click(submitButton);
     
-      await waitFor(() => expect(screen.getByTestId('SectionsOverTimeTable')).toBeInTheDocument());
-    });
+      await waitFor(() => expect(screen.getByText("No courses found.")).toBeInTheDocument());
+  });
+
+  test('renders SectionsOverTimeTable when courseJSON has results', async () => {
+    axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
+    axiosMock
+      .onGet("/api/public/courseovertime/search")
+      .reply(200, { count: 4, results: ["section1", "section2", "Section3", "Section4"] });
+  
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CourseOverTimeIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+  
+    const selectStartQuarter = screen.getByLabelText("Start Quarter");
+    userEvent.selectOptions(selectStartQuarter, "20222");
+    const selectEndQuarter = screen.getByLabelText("End Quarter");
+    userEvent.selectOptions(selectEndQuarter, "20222");
+    const selectSubject = screen.getByLabelText("Subject Area");
+  
+    const expectedKey = "CourseOverTimeSearch.Subject-option-ANTH";
+    await waitFor(() => expect(screen.getByTestId(expectedKey)).toBeInTheDocument());
+  
+    userEvent.selectOptions(selectSubject, "CMPSC");
+    const enterCourseNumber = screen.getByLabelText(
+      "Course Number (Try searching '16' or '130A')"
+    );
+    userEvent.type(enterCourseNumber, "16");
+    const submitButton = screen.getByText("Submit");
+    expect(submitButton).toBeInTheDocument();
+    userEvent.click(submitButton);
+    
+    expect(screen.getByTestId("SectionsOverTimeTable-header-quarter")).toBeInTheDocument();
+  });
 
 });

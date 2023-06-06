@@ -94,6 +94,8 @@ describe("CourseOverTimeIndexPage tests", () => {
           courseNumber: "130A",
       });
 
+      
+
   });
 
   test('renders "No courses found." message when courseJSON is empty', async () => {
@@ -135,7 +137,53 @@ describe("CourseOverTimeIndexPage tests", () => {
     axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
     axiosMock
       .onGet("/api/public/courseovertime/search")
-      .reply(200, { count: 4, results: ["section1", "section2", "Section3", "Section4"] });
+      .reply(200, { count: 1, results: [{
+        "_id": {
+            "timestamp": 1684365834,
+            "date": 1684365834000
+        },
+        "courseInfo": {
+            "quarter": "20221",
+            "courseId": "CMPSC   130A -1",
+            "title": "DATA STRUCT ALGOR",
+            "description": "Data structures and applications with proofs of correctness and analysis. H ash tables, priority queues (heaps); balanced search trees. Graph traversal techniques and their applications."
+        },
+        "section": {
+            "enrollCode": "08128",
+            "section": "0100",
+            "session": null,
+            "classClosed": "Y",
+            "courseCancelled": null,
+            "gradingOptionCode": null,
+            "enrolledTotal": 80,
+            "maxEnroll": 100,
+            "secondaryStatus": "R",
+            "departmentApprovalRequired": false,
+            "instructorApprovalRequired": false,
+            "restrictionLevel": null,
+            "restrictionMajor": "+CMPSC+CMPEN+CPSCI+EE",
+            "restrictionMajorPass": null,
+            "restrictionMinor": null,
+            "restrictionMinorPass": null,
+            "concurrentCourses": [],
+            "timeLocations": [
+                {
+                    "room": "1171",
+                    "building": "CHEM",
+                    "roomCapacity": "113",
+                    "days": " T R   ",
+                    "beginTime": "12:30",
+                    "endTime": "13:45"
+                }
+            ],
+            "instructors": [
+                {
+                    "instructor": "SINGH A K",
+                    "functionCode": "Teaching and in charge"
+                }
+            ]
+        }
+    }] });
   
     render(
       <QueryClientProvider client={queryClient}>
@@ -158,12 +206,12 @@ describe("CourseOverTimeIndexPage tests", () => {
     const enterCourseNumber = screen.getByLabelText(
       "Course Number (Try searching '16' or '130A')"
     );
-    userEvent.type(enterCourseNumber, "16");
+    userEvent.type(enterCourseNumber, "130A");
     const submitButton = screen.getByText("Submit");
     expect(submitButton).toBeInTheDocument();
     userEvent.click(submitButton);
     
-    expect(screen.getByTestId("SectionsOverTimeTable-header-quarter")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByTestId("SectionsOverTimeTable-header-quarter")).toBeInTheDocument());
   });
 
 });

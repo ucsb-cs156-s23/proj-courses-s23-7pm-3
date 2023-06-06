@@ -76,6 +76,7 @@ public class CourseOverTimeController {
         );
         // String body = mapper.writeValueAsString(courseResults);
         // return ResponseEntity.ok().body(body);
+
         Map<String, Object> map = new HashMap<>();
         map.put("count", courseResults.size());
         map.put("results", courseResults);

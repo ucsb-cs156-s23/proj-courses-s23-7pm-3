@@ -1,5 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 courses,edu.ucsb.cs156.courses.controllers,CSRFController,0,5,0,0,0,2,0,2,0,2
+courses,edu.ucsb.cs156.courses.controllers,GradeHistoryController,0,18,0,0,0,5,0,3,0,3
 courses,edu.ucsb.cs156.courses.controllers,ApiController,0,33,0,0,0,10,0,6,0,6
 courses,edu.ucsb.cs156.courses.controllers,PersonalSectionsController,0,82,0,2,0,17,0,5,0,4
 courses,edu.ucsb.cs156.courses.controllers,UserInfoController,0,6,0,0,0,2,0,2,0,2
@@ -44,5 +45,6 @@ courses,edu.ucsb.cs156.courses.services,UCSBGradeHistoryServiceImpl,0,205,0,6,0,
 courses,edu.ucsb.cs156.courses.services,SystemInfoService,0,3,0,0,0,1,0,1,0,1
 courses,edu.ucsb.cs156.courses.services,CurrentUserService,0,10,0,2,0,2,0,3,0,2
 courses,edu.ucsb.cs156.courses.services,UCSBCurriculumService,0,627,0,6,0,137,0,12,0,9
+courses,edu.ucsb.cs156.courses.utilities,CourseUtilities,0,68,0,2,0,10,0,2,0,1
 courses,edu.ucsb.cs156.courses.services.jobs,JobService,0,53,0,0,0,18,0,3,0,3
 courses,edu.ucsb.cs156.courses.services.jobs,JobContext,0,48,0,4,0,7,0,4,0,2
